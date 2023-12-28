@@ -1,6 +1,8 @@
 import React from 'react';
 
 function Homepage() {
+
+  const token = localStorage.getItem('authTokens')
   return (
     <div>
       <div className="jumbotron text-center bg-primary text-white rounded-3 shadow" style={{ marginTop: '85px', backgroundImage: 'linear-gradient(to right, #007BFF, #00BFFF)', padding: '50px 20px' }}>
@@ -10,15 +12,17 @@ function Homepage() {
           Our captivating lessons and interactive activities turn learning math into a thrilling adventure,
           ensuring students build a strong foundation with confidence and joy. Join us on a journey where math
           becomes exciting, accessible, and fun for every young learner.
-        </p>
-        <p className="lead">
-          <a className="btn btn-success btn-lg" href="/login" role="button">
-            Login
-          </a>
-          <a className="btn btn-success btn-lg ml-3" href="/register" role="button">
-            Register
-          </a>
-        </p>
+        </p> 
+        {token === null && // not logged in
+          <p className="lead">
+            <a className="btn btn-success btn-lg" href="/login" role="button">
+              Login
+            </a>
+            <a className="btn btn-success btn-lg ml-3" href="/register" role="button">
+              Register
+            </a>
+          </p>
+        }
       </div>
 
       <div className="container mt-5">

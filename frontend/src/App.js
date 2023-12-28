@@ -14,6 +14,7 @@ import RegisterPage from './views/RegisterPage'
 import Navbar from './views/Navbar'
 import Settings from "./views/Settings";
 import HelpDesk from "./views/HelpDesk";
+import NotFound from "./views/NotFound";
 
 
 const history = createBrowserHistory()
@@ -30,6 +31,7 @@ function App() {
           <Route component={RegisterPage} path='/register' />
           <Route component={Homepage} path='/home' />
           <Route component={HelpDesk} path='/help' />
+          <Route component={NotFound} />
         </Switch>
     </Router>
     </AuthProvider>

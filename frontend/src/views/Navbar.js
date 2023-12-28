@@ -2,6 +2,8 @@ import React, { Fragment } from 'react'
 import { jwtDecode } from 'jwt-decode'
 import { useContext } from 'react'
 import AuthContext from '../context/AuthContext'
+const swal = require('sweetalert2')
+
 
 function Navbar() {
   const {user, logoutUser} = useContext(AuthContext)
@@ -17,7 +19,7 @@ function Navbar() {
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
         <div className="container-fluid">
-          <a className="navbar-brand" href={token !== null ? "/dashboard" : "home"}>
+          <a className="navbar-brand" href="home">
             <img style={{width:"150px", padding:"6px"}} src="/images/logo_straight.png" alt=""/> {/*Math wizard logo*/}
 
           </a>

@@ -1,16 +1,20 @@
 import {createContext, useState, useEffect} from "react";
 import {createBrowserHistory} from 'history'
+// import { Redirect } from "react-router-dom";
 // import {useHistory} from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 const swal = require('sweetalert2')
 
-
 const AuthContext = createContext();
-const history = createBrowserHistory();
+
 
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
+
+  // const history = useHistory()
+  const history = createBrowserHistory();
+
   const [authTokens, setAuthTokens] = useState(() =>
     localStorage.getItem("authTokens")
       ? JSON.parse(localStorage.getItem("authTokens"))
@@ -112,7 +116,7 @@ export const AuthProvider = ({ children }) => {
     setAuthTokens(null);
     setUser(null);
     localStorage.removeItem("authTokens");
-    history.push("/login");
+    
     swal.fire({
       title: "You have been logged out...",
       icon: "success",
@@ -122,6 +126,8 @@ export const AuthProvider = ({ children }) => {
       timerProgressBar: true,
       showConfirmButton: false,
     });
+    // history.push("/login"); // it shows in url but doesn't navigate
+    document.location.reload()
   };
 
   const isAuthenticated = () => {
