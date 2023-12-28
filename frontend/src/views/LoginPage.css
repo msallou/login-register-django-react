@@ -1,0 +1,60 @@
+/* LoginPage.css */
+
+.gradient {
+  background: linear-gradient(to right, #007BFF, #00BFFF);
+}
+
+.card-landing {
+  border-radius: 1.5rem; /* Increased border radius for a smoother look */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+}
+
+.icon {
+  color: #ff6219;
+  font-size: 2.5rem; /* Increased icon size */
+  margin-right: 1rem; /* Increased margin for better spacing */
+}
+
+/* Add some more styling for better visual appeal */
+.card-body {
+  padding: 60px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.btn-dark {
+  background-color: #394e78;
+  border-color: #394e78;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.btn-dark:hover {
+  background-color: #2d325e;
+  border-color: #2d325e;
+}
+
+/* New styles for form elements */
+.form-outline {
+  margin-bottom: 30px;
+}
+
+.form-label {
+  color: #394e78;
+  font-weight: bold; /* Added bold font weight */
+}
+
+.small.text-muted:hover {
+  text-decoration: underline;
+  color: #2d325e;
+}
+
+/* Style the registration link */
+.mb-5 a {
+  color: #394e78;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+}
+
+.mb-5 a:hover {
+  text-decoration: underline;
+  color: #2d325e;
+}

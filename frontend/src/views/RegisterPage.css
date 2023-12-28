@@ -1,0 +1,61 @@
+/* RegisterPage.css */
+
+.gradient-custom {
+    background: linear-gradient(to right, #4b9170, #187348);
+  }
+  
+  .card-landing {
+    border-radius: 1rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .icon {
+    color: #ff6219;
+    font-size: 2rem;
+    margin-right: 0.5rem;
+  }
+  
+  .card-body {
+    padding: 40px;
+  }
+  
+  .btn-dark {
+    background-color: #393f81;
+    border-color: #393f81;
+  }
+  
+  .btn-dark:hover {
+    background-color: #2d325e;
+    border-color: #2d325e;
+  }
+  
+  .form-outline {
+    margin-bottom: 20px;
+  }
+  
+  .form-label {
+    color: #393f81;
+  }
+  
+  .small.text-muted {
+    color: #393f81;
+  }
+  
+  .small.text-muted:hover {
+    text-decoration: underline;
+  }
+  
+  .mb-5 a {
+    color: #393f81;
+    font-weight: bold;
+  }
+  
+  .mb-5 a:hover {
+    text-decoration: underline;
+    color: #2d325e;
+  }
+  
+  /* Added margin-top to move the form down */
+  .form-container {
+    margin-top: 20px;
+  }
