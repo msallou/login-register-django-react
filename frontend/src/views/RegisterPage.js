@@ -56,24 +56,27 @@ function RegisterPage() {
   };
 
 
-  // const checkPersonalInfo = () => {
-  //   if (password === '' || password2 === '') {
-  //     setPersonalInfoColor('black');
-  //   } else {
-  //     const stringsToCheck = [username, first_name, last_name];
-  //     const lowercasePassword = password.toLowerCase();
-  //     // const lowercasePassword2 = password2.toLowerCase();
-  //     let matches = false
+  const checkPersonalInfo = () => {
+    if (password === '' || password2 === '') {
+      setPersonalInfoColor('black');
+    } else {
+      const stringsToCheck = [username, first_name, last_name];
+      const lowercasePassword = password.toLowerCase();
+      // const lowercasePassword2 = password2.toLowerCase();
 
-  //     for (const str of stringsToCheck) {
-  //       if (lowercasePassword.includes(str.toLowerCase().slice(0, 3))) {
-  //         matches = true
-  //       }
-  //     }
+      const filteredStrings = stringsToCheck.map(str => str.length >= 3 ? str : null).filter(Boolean); // strings that are at least three
 
-  //     setPersonalInfoColor(matches? 'red' : 'green');
-  //   }
-  // };
+      let matches = false
+
+      for (const str of filteredStrings) {
+        if (lowercasePassword.includes(str.toLowerCase().slice(0, 3))) {
+          matches = true
+        }
+      }
+
+      setPersonalInfoColor(matches? 'red' : 'green');
+    }
+  };
 
   const checkPasswordLength = () => {
     if (password === '') {
@@ -108,7 +111,7 @@ function RegisterPage() {
     checkPassMatch();
     checkPasswordLength();
     checkNumericPassword();
-    // checkPersonalInfo();
+    checkPersonalInfo();
     checkCommonPassword();
   
     const passlength = document.getElementById('passlength');
