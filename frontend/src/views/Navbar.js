@@ -20,7 +20,7 @@ function Navbar() {
       <nav className="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
         <div className="container-fluid">
           <a className="navbar-brand" href="home">
-            <img style={{width:"150px", padding:"6px"}} src="/images/logo_straight.png" alt=""/> {/*Math wizard logo*/}
+            <img style={{width:"50px", padding:"6px"}} src="/images/logo192.png" alt=""/> {/*Math wizard logo*/}
 
           </a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
