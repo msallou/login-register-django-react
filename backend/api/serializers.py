@@ -3,7 +3,9 @@ from rest_framework_simplejwt.tokens import Token
 from api.models import User#, Profile
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer # used to make access and refresh token
-from rest_framework import serializers
+from rest_framework import serializers, status
+from rest_framework.response import Response
+
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -25,19 +27,19 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         return token
 
 class RegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+    password = serializers.CharField(write_only=True, required=True)#, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)
 
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email', 'password', 'password2']
 
-    def validate(self, attrs):
-        if attrs['password'] != attrs['password2']:
-            raise serializers.ValidationError(
-                {'password': 'Password Fields Do Not Match'}
-            )
-        return attrs
+    # def validate(self, attrs):
+    #     if attrs['password'] != attrs['password2']:
+    #         raise serializers.ValidationError(
+    #             {'password': 'Password Fields Do Not Match'}
+    #         )
+    #     return attrs
     
     def create(self, validated_data):
         user = User.objects.create(

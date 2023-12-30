@@ -57,5 +57,20 @@
   
   /* Added margin-top to move the form down */
   .form-container {
-    margin-top: 20px;
+    margin-top: -40px;
+  }
+  .button {
+    margin-top: -30px;
+    margin-bottom: -60px;
+  }
+  .logintext {
+    margin-bottom: -35px;
+    padding-top: 30px;
+  }
+  .requirements {
+    line-height: 4px;
+  }
+  #match {
+    display: none;
+    color: red;
   }

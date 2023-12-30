@@ -1,5 +1,5 @@
 import {createContext, useState, useEffect} from "react";
-import {createBrowserHistory} from 'history'
+// import {createBrowserHistory} from 'history'
 // import { Redirect } from "react-router-dom";
 // import {useHistory} from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
@@ -13,7 +13,7 @@ export default AuthContext;
 export const AuthProvider = ({ children }) => {
 
   // const history = useHistory()
-  const history = createBrowserHistory();
+  // const history = createBrowserHistory();
 
   const [authTokens, setAuthTokens] = useState(() =>
     localStorage.getItem("authTokens")
@@ -75,6 +75,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   const registerUser = async (username, first_name, last_name, email, password, password2, onSuccess) => {
+    // let passlength = document.getElementById('passlength')
+    // let entirelynumeric = document.getElementById('entirelynumeric')
+    // let toocommon = document.getElementById('toocommon')
+    // let personalinfo = document.getElementById('personalinfo')
+
     const response = await fetch("http://127.0.0.1:8000/api/register/", {
       method: "POST",
       headers: {
@@ -95,7 +100,7 @@ export const AuthProvider = ({ children }) => {
         position: 'top-right',
         timerProgressBar: true,
         showConfirmButton: false,
-      });
+      })
     } else {
       console.log(response.status);
       console.log("There was a server issue");

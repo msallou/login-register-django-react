@@ -29,7 +29,7 @@ function App() {
           <PrivateRoute path="/settings"><Settings /></PrivateRoute>
           <Route component={LoginPage} path='/login' />
           <Route component={RegisterPage} path='/register' />
-          <Route component={Homepage} path='/home' />
+          <Route exact path={['/', '/home']} component={Homepage} />
           <Route component={HelpDesk} path='/help' />
           <Route component={NotFound} />
         </Switch>

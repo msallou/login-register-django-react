@@ -11,6 +11,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from .serializers import UserSerializer
+from rest_framework.exceptions import ValidationError
+
 
 
 
@@ -24,6 +26,8 @@ class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = ([AllowAny])
     serializer_class = RegisterSerializer
+
+
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
