@@ -152,10 +152,14 @@ function RegisterPage() {
 
   const checkPassMatch = () => {
     // console.log(password, password2)
-    if (password !== password2) {
-      setpassMatchStyle('block')
-    } else {
+    if (password2 === '') {
       setpassMatchStyle('none')
+    } else {
+      if (password !== password2) {
+        setpassMatchStyle('block')
+      } else {
+        setpassMatchStyle('none')
+        }
     }
   }
 
@@ -243,7 +247,7 @@ function RegisterPage() {
   return (
     <div>
       <section className="vh-100 gradient-custom">
-          <div className="container py-5 h-100" style={{ marginTop: '50px' }}>
+          <div className="container py-5 h-100" style={{ marginTop: '40px' }}>
             <div className="row d-flex justify-content-center align-items-center h-100">
               <div className="col col-xl-10">
                 <div className="card card-landing">
@@ -265,7 +269,7 @@ function RegisterPage() {
                         <h5 className="fw-normal mb-3 pb-3" style={{ letterSpacing: 1 }}>Sign Up</h5>
                         <div className="form-outline mb-2">
                           <label className="form-label" htmlFor="formUsername">Username</label>
-                          {usernameAvailable ? null : <p style={{ color: 'red' }}>✘ Username Already Exists</p>}
+                          {usernameAvailable ? null : <p style={{ color: 'red' }}><b>✘ Username Already Exists</b></p>}
                           <input type="text" id="formUsername" className="form-control form-control-lg" placeholder="Username" onKeyUp={checkUsernameAvailability} onChange={(e) => {e.persist();setUsername(e.target.value);}} />
                         </div>
                         <div className="form-outline mb-2">
@@ -278,7 +282,7 @@ function RegisterPage() {
                         </div>
                         <div className="form-outline mb-2">
                           <label className="form-label" htmlFor="formEmail">Email Address</label>
-                          {emailErrorMessage && (<p style={{ color: 'red'}}>✘ {emailErrorMessage}</p>)}
+                          {emailErrorMessage && (<p style={{ color: 'red'}}><b>✘ {emailErrorMessage}</b></p>)}
                           <input type="email" id="formEmail" className="form-control form-control-lg" placeholder="Email Address" onKeyUp={checkEmail} onChange={(e) => setEmail(e.target.value)}/>
                         </div>
                         <div className="form-outline mb-2">
