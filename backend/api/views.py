@@ -11,8 +11,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from .serializers import UserSerializer
-from rest_framework.exceptions import ValidationError
-
+from django.http import JsonResponse
+from django.views.decorators.http import require_GET
 
 
 
@@ -66,3 +66,22 @@ class UserProfileView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class RegisteredUsernamesView(APIView):
+    def get(self, request, format=None):
+        # Retrieve all user objects from the database
+        users = User.objects.all()
+
+        # Serialize the usernames (adjust serializer as needed)
+        serializer = UserSerializer(users, many=True)
+        usernames = serializer.data
+
+        return Response(usernames)
+    
+@require_GET
+def check_username_availability(request, username):
+    # Check if the username already exists in the database
+    is_available = not User.objects.filter(username=username).exists()
+
+    # Return the result as JSON
+    return JsonResponse({'isAvailable': is_available})

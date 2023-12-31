@@ -5,15 +5,17 @@ import AuthContext from "../context/AuthContext";
 import { useHistory } from 'react-router-dom';
 import "./RegisterPage.css";
 import { Button } from 'reactstrap'
+import axios from 'axios'
 
 
 
 function RegisterPage() {
   const [requirementsShow, setrequirementsShow] = useState('none')
   const [confirmHide, setConfirmHide] = useState(true)
+  const [usernameErrorMessage, setUsernameErrorMessage] = useState('')
+  const [usernameAvailable, setUsernameAvailable] = useState(true)
 
 
-  const [passLengthStyle, setPassLengthStyle] = useState('red')
   const [passMatchStyle, setpassMatchStyle] = useState('none')
   const [isEntirelyNumeric, setIsEntirelyNumeric] = useState('');
   const [numericColor, setNumericColor] = useState('black');
@@ -98,10 +100,23 @@ function RegisterPage() {
     }
   };
   
-  
-  
+  const checkUsernameAvailability = async () => {
+    if (username === '') {
+      // can't set it to available because you can then submit with a blank username
+    } else{
+        try {
+          const response = await axios.get(`http://localhost:8000/api/check-username/${username}/`);
+          const { isAvailable } = response.data;
 
-
+          setUsernameAvailable(isAvailable);
+        } catch (error) {
+          console.error('Error checking username availability:', error);
+          // setUsernameAvailable(true);  // Set to false in case of an error
+          setUsernameErrorMessage('Error checking username availability');
+        }
+      }
+  };
+  
 
   // const checkPersonalInfo = () => {
   //   if (password === '' || password2 === '') {
@@ -134,7 +149,12 @@ function RegisterPage() {
     } else {
       setLengthColor(password.length < 8 ? 'red' : 'green');
       setrequirementsShow('block')
-      setConfirmHide(false)
+      if (password.length < 8) {
+        setConfirmHide(true)
+        
+      } else {
+        setConfirmHide(false)
+      }
     }
   };
 
@@ -169,6 +189,7 @@ function RegisterPage() {
     // checkPersonalInfo();
     checkCommonPassword();
     checkEmail()
+    checkUsernameAvailability()
   
     const passlength = document.getElementById('passlength');
     const match = document.getElementById('match');
@@ -183,6 +204,7 @@ function RegisterPage() {
     toocommon.style.color = commonPasswordColor;
 
     if (
+      !usernameAvailable ||
       emailErrorMessage ||
       passMatchStyle === 'block' ||
       lengthColor === 'red' ||
@@ -204,7 +226,7 @@ function RegisterPage() {
     if (authTokens) {
       history.push('/dashboard');
     }
-  }, [authTokens, history, lengthColor, password, password2, passMatchStyle, isEntirelyNumeric, numericColor, personalInfoColor, commonPasswordColor]);
+  }, [authTokens, history, lengthColor, password, password2, passMatchStyle, isEntirelyNumeric, numericColor, personalInfoColor, commonPasswordColor, usernameAvailable]);
   
 
 
@@ -250,7 +272,8 @@ function RegisterPage() {
                         <h5 className="fw-normal mb-3 pb-3" style={{ letterSpacing: 1 }}>Sign Up</h5>
                         <div className="form-outline mb-2">
                           <label className="form-label" htmlFor="formUsername">Username</label>
-                          <input type="text" id="formUsername" className="form-control form-control-lg" placeholder="Username" onChange={e => setUsername(e.target.value)} />
+                          {usernameAvailable ? null : <p style={{ color: 'red' }}>Username Already Exists</p>}
+                          <input type="text" id="formUsername" className="form-control form-control-lg" placeholder="Username" onKeyUp={checkUsernameAvailability} onChange={(e) => {e.persist();setUsername(e.target.value);}} />
                         </div>
                         <div className="form-outline mb-2">
                           <label className="form-label" htmlFor="formFirstName">First Name</label>
