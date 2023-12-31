@@ -15,6 +15,8 @@ function RegisterPage() {
   const [commonPasswordColor, setCommonPasswordColor] = useState('black');
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
+  const [emailErrorMessage, setEmailErrorMessage] = useState('');
+
   const [username, setUsername] = useState('');
   const [first_name, setFirst_Name] = useState('');
   const [last_name, setLast_Name] = useState('');
@@ -37,6 +39,18 @@ function RegisterPage() {
     }
   };
 
+  const fetchEmailDomains = async () => {
+    try {
+      const response = await fetch('./emails.txt');
+      const domains = await response.text();
+      return domains.split('\n');
+    } catch (error) {
+      console.error('Error fetching email domains:', error);
+      return [];
+    }
+  };
+  
+
   const checkCommonPassword = async () => {
     if (password === '') {
       setCommonPasswordColor('black');
@@ -55,28 +69,45 @@ function RegisterPage() {
     }
   };
 
-
-  const checkPersonalInfo = () => {
-    if (password === '' || password2 === '') {
-      setPersonalInfoColor('black');
+  const checkEmail = () => {
+    if (email === '') {
+      setEmailErrorMessage('');
+      return;
+    }
+  
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+    if (!emailRegex.test(email)) {
+      setEmailErrorMessage('Invalid Email');
     } else {
-      const stringsToCheck = [username, first_name, last_name];
-      const lowercasePassword = password.toLowerCase();
-      // const lowercasePassword2 = password2.toLowerCase();
-
-      const filteredStrings = stringsToCheck.map(str => str.length >= 3 ? str : null).filter(Boolean); // strings that are at least three
-
-      let matches = false
-
-      for (const str of filteredStrings) {
-        if (lowercasePassword.includes(str.toLowerCase().slice(0, 3))) {
-          matches = true
-        }
-      }
-
-      setPersonalInfoColor(matches? 'red' : 'green');
+      setEmailErrorMessage('');
     }
   };
+  
+
+
+  // const checkPersonalInfo = () => {
+  //   if (password === '' || password2 === '') {
+  //     setPersonalInfoColor('black');
+  //   } else {
+  //     const stringsToCheck = [username, first_name, last_name];
+  //     const lowercasePassword = password.toLowerCase();
+  //     // const lowercasePassword2 = password2.toLowerCase();
+
+  //     const filteredStrings = stringsToCheck.map(str => str.length >= 3 ? str : null).filter(Boolean); // strings that are at least three
+
+  //     let matches = false
+
+  //     for (const str of filteredStrings) {
+  //       if (lowercasePassword.includes(str.toLowerCase().slice(0, 3))) {
+  //         matches = true
+  //       }
+  //     }
+
+  //     setPersonalInfoColor(matches? 'red' : 'green');
+  //   }
+  // };
+
 
   const checkPasswordLength = () => {
     if (password === '') {
@@ -111,8 +142,9 @@ function RegisterPage() {
     checkPassMatch();
     checkPasswordLength();
     checkNumericPassword();
-    checkPersonalInfo();
+    // checkPersonalInfo();
     checkCommonPassword();
+    checkEmail()
   
     const passlength = document.getElementById('passlength');
     const match = document.getElementById('match');
@@ -127,11 +159,18 @@ function RegisterPage() {
     toocommon.style.color = commonPasswordColor;
 
     if (
+      emailErrorMessage ||
       passMatchStyle === 'block' ||
       lengthColor === 'red' ||
       numericColor === 'red' ||
       personalInfoColor === 'red' ||
-      commonPasswordColor === 'red'
+      commonPasswordColor === 'red' ||
+      username === '' ||
+      first_name === '' ||
+      last_name === '' ||
+      email === '' ||
+      password === '' ||
+      password2 === ''
     ) {
       setIsButtonDisabled(true);
     } else {
@@ -199,7 +238,8 @@ function RegisterPage() {
                         </div>
                         <div className="form-outline mb-2">
                           <label className="form-label" htmlFor="formEmail">Email Address</label>
-                          <input type="email" id="formEmail" className="form-control form-control-lg" placeholder="Email Address" onChange={e => setEmail(e.target.value)} />
+                          {emailErrorMessage && (<p style={{ color: 'red', fontSize: '14px', marginBottom: '5px' }}>{emailErrorMessage}</p>)}
+                          <input type="email" id="formEmail" className="form-control form-control-lg" placeholder="Email Address" onChange={(e) => {e.persist(); setEmail(e.target.value); checkEmail()}}/>
                         </div>
                         <div className="form-outline mb-2">
                           <label className="form-label" htmlFor="formPassword">Password</label>
@@ -218,7 +258,7 @@ function RegisterPage() {
                         </div>
                         <div className="pt-1 mb-4">
                           <button className="btn btn-dark btn-lg btn-block button" disabled={isButtonDisabled} type="submit">Register</button>
-                          <p className="pb-lg-2 small text-muted logintext">Already have an account? <a href="/login">Login here</a></p>
+                          <p className="pb-lg-2 small text-muted logintext" style={{textDecoration: 'none'}}>Already have an account? <a href="/login">Login here</a></p>
                         </div>
                       </form>
                     </div>
