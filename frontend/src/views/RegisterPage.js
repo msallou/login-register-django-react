@@ -37,19 +37,7 @@ function RegisterPage() {
       console.error('Error fetching common passwords:', error);
       return [];
     }
-  };
-
-  const fetchEmailDomains = async () => {
-    try {
-      const response = await fetch('./emails.txt');
-      const domains = await response.text();
-      return domains.split('\n');
-    } catch (error) {
-      console.error('Error fetching email domains:', error);
-      return [];
-    }
-  };
-  
+  };  
 
   const checkCommonPassword = async () => {
     if (password === '') {
