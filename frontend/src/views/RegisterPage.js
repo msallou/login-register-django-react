@@ -9,6 +9,10 @@ import { Button } from 'reactstrap'
 
 
 function RegisterPage() {
+  const [requirementsShow, setrequirementsShow] = useState('none')
+  const [confirmHide, setConfirmHide] = useState(true)
+
+
   const [passLengthStyle, setPassLengthStyle] = useState('red')
   const [passMatchStyle, setpassMatchStyle] = useState('none')
   const [isEntirelyNumeric, setIsEntirelyNumeric] = useState('');
@@ -125,8 +129,12 @@ function RegisterPage() {
   const checkPasswordLength = () => {
     if (password === '') {
       setLengthColor('black'); // Set color to black if it's blank
+      setrequirementsShow('none')
+      setConfirmHide(true)
     } else {
       setLengthColor(password.length < 8 ? 'red' : 'green');
+      setrequirementsShow('block')
+      setConfirmHide(false)
     }
   };
 
@@ -263,17 +271,17 @@ function RegisterPage() {
                         </div>
                         <div className="form-outline mb-4">
                           <label className="form-label" htmlFor="formConfirmPassword">Confirm Password</label>
-                          <input type="password" id="formConfirmPassword" className="form-control form-control-lg" placeholder="Confirm Password" onChange={(e) => {setPassword2(e.target.value)}} />
+                          <input type="password" id="formConfirmPassword" className="form-control form-control-lg" disabled={confirmHide} placeholder="Confirm Password" onChange={(e) => {setPassword2(e.target.value)}} />
                         </div>
-                        <div className='requirements'>
-                          <p id="match" style={{ color: 'red', display: passMatchStyle }}>Password don't match</p>
+                        <div className='requirements' style={{display: requirementsShow}}>
+                          <p id="match" style={{ color: 'red', display: passMatchStyle }}><b>Passwords don't match</b></p>
                           <p id='passlength'>Password must be at least 8 characters</p>
                           <p id='entirelynumeric'>Can't be entirely numeric</p>
                           <p id='toocommon'>Can't be too common (at least 1 number and special character)</p>
                           <p id='personalinfo'>Can't have any personal information</p>
                         </div>
                         <div className="pt-1 mb-4">
-                        <label style={{color: 'red'}}>{isButtonDisabled?'Check all errors & fields and make sure they are all filled out and valid':''}</label>
+                        <label style={{color: 'red'}}>{isButtonDisabled?'Review and validate all entries for accuracy and completeness':''}</label>
                         <button className="btn btn-dark btn-lg btn-block button" disabled={isButtonDisabled} title="check all fields" type="submit">Register</button>
                         
 
