@@ -14,6 +14,7 @@ function RegisterPage() {
   const [confirmHide, setConfirmHide] = useState(true)
   const [usernameErrorMessage, setUsernameErrorMessage] = useState('')
   const [usernameAvailable, setUsernameAvailable] = useState(true)
+  const [invalidFields, setInvalidFields] = useState()
 
 
   const [passMatchStyle, setpassMatchStyle] = useState('none')
@@ -116,6 +117,15 @@ function RegisterPage() {
         }
       }
   };
+
+  const validateEntries = () => {
+    if ((username !== '' && first_name !== '' && last_name !== '' && email !== '' && password !== '' && password2 !== '') && 
+    (!usernameAvailable || emailErrorMessage || passMatchStyle === 'block' || lengthColor === 'red' || numericColor === 'red' || personalInfoColor === 'red' || commonPasswordColor === 'red')) {
+      setInvalidFields(true)
+    } else {
+      setInvalidFields(false)
+    }
+  }
   
 
   // const checkPersonalInfo = () => {
@@ -190,6 +200,7 @@ function RegisterPage() {
     checkCommonPassword();
     checkEmail()
     checkUsernameAvailability()
+    validateEntries()
   
     const passlength = document.getElementById('passlength');
     const match = document.getElementById('match');
@@ -304,7 +315,7 @@ function RegisterPage() {
                           <p id='personalinfo'>Can't have any personal information</p>
                         </div>
                         <div className="pt-1 mb-4">
-                        <label style={{color: 'red'}}>{isButtonDisabled?'Review and validate all entries for accuracy and completeness':''}</label>
+                        <label style={{color: 'red'}}>{invalidFields?'Review and validate all entries for accuracy and completeness':''}</label>
                         <button className="btn btn-dark btn-lg btn-block button" disabled={isButtonDisabled} title="check all fields" type="submit">Register</button>
                         
 
