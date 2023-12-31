@@ -67,24 +67,6 @@ function RegisterPage() {
     }
   };
 
-  // const checkEmail = (e) => {
-  //   if (email.length === 0) {
-  //     setEmailErrorMessage('');
-  //     return;
-  //   }
-  
-  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
-  //   // Use the functional form of setEmail to ensure the latest state value
-  //   setEmail(prevEmail => {
-  //     if (!emailRegex.test(prevEmail)) {
-  //       setEmailErrorMessage('Invalid Email');
-  //     } else {
-  //       setEmailErrorMessage('');
-  //     }
-  //     return prevEmail;
-  //   });
-  // };
   const checkEmail = () => {
     const emailValue = email;
   
@@ -128,27 +110,27 @@ function RegisterPage() {
   }
   
 
-  // const checkPersonalInfo = () => {
-  //   if (password === '' || password2 === '') {
-  //     setPersonalInfoColor('black');
-  //   } else {
-  //     const stringsToCheck = [username, first_name, last_name];
-  //     const lowercasePassword = password.toLowerCase();
-  //     // const lowercasePassword2 = password2.toLowerCase();
+  const checkPersonalInfo = () => {
+    if (password === '') {
+      setPersonalInfoColor('black');
+    } else {
+      const stringsToCheck = [username, first_name, last_name];
+      const lowercasePassword = password.toLowerCase();
+      // const lowercasePassword2 = password2.toLowerCase();
 
-  //     const filteredStrings = stringsToCheck.map(str => str.length >= 3 ? str : null).filter(Boolean); // strings that are at least three
+      const filteredStrings = stringsToCheck.map(str => str.length >= 3 ? str : null).filter(Boolean); // strings that are at least three
 
-  //     let matches = false
+      let matches = false
 
-  //     for (const str of filteredStrings) {
-  //       if (lowercasePassword.includes(str.toLowerCase().slice(0, 3))) {
-  //         matches = true
-  //       }
-  //     }
+      for (const str of filteredStrings) {
+        if (lowercasePassword.includes(str.toLowerCase().slice(0, 3))) {
+          matches = true
+        }
+      }
 
-  //     setPersonalInfoColor(matches? 'red' : 'green');
-  //   }
-  // };
+      setPersonalInfoColor(matches? 'red' : 'green');
+    }
+  };
 
 
   const checkPasswordLength = () => {
@@ -196,7 +178,7 @@ function RegisterPage() {
     checkPassMatch();
     checkPasswordLength();
     checkNumericPassword();
-    // checkPersonalInfo();
+    checkPersonalInfo();
     checkCommonPassword();
     checkEmail()
     checkUsernameAvailability()
@@ -283,7 +265,7 @@ function RegisterPage() {
                         <h5 className="fw-normal mb-3 pb-3" style={{ letterSpacing: 1 }}>Sign Up</h5>
                         <div className="form-outline mb-2">
                           <label className="form-label" htmlFor="formUsername">Username</label>
-                          {usernameAvailable ? null : <p style={{ color: 'red' }}>Username Already Exists</p>}
+                          {usernameAvailable ? null : <p style={{ color: 'red' }}>✘ Username Already Exists</p>}
                           <input type="text" id="formUsername" className="form-control form-control-lg" placeholder="Username" onKeyUp={checkUsernameAvailability} onChange={(e) => {e.persist();setUsername(e.target.value);}} />
                         </div>
                         <div className="form-outline mb-2">
@@ -296,7 +278,7 @@ function RegisterPage() {
                         </div>
                         <div className="form-outline mb-2">
                           <label className="form-label" htmlFor="formEmail">Email Address</label>
-                          {emailErrorMessage && (<p style={{ color: 'red'}}>{emailErrorMessage}</p>)}
+                          {emailErrorMessage && (<p style={{ color: 'red'}}>✘ {emailErrorMessage}</p>)}
                           <input type="email" id="formEmail" className="form-control form-control-lg" placeholder="Email Address" onKeyUp={checkEmail} onChange={(e) => setEmail(e.target.value)}/>
                         </div>
                         <div className="form-outline mb-2">
@@ -308,14 +290,14 @@ function RegisterPage() {
                           <input type="password" id="formConfirmPassword" className="form-control form-control-lg" disabled={confirmHide} placeholder="Confirm Password" onChange={(e) => {setPassword2(e.target.value)}} />
                         </div>
                         <div className='requirements' style={{display: requirementsShow}}>
-                          <p id="match" style={{ color: 'red', display: passMatchStyle }}><b>Passwords don't match</b></p>
-                          <p id='passlength'>Password must be at least 8 characters</p>
-                          <p id='entirelynumeric'>Can't be entirely numeric</p>
-                          <p id='toocommon'>Can't be too common (at least 1 number and special character)</p>
-                          <p id='personalinfo'>Can't have any personal information</p>
+                          <p id="match" style={{ color: 'red', display: passMatchStyle }}><b>✘ Passwords don't match</b></p>
+                          <p id='passlength'>{lengthColor === 'green' ? '✔' : '✘'} Password must be at least 8 characters</p>
+                          <p id='entirelynumeric'>{numericColor === 'green' ? '✔' : '✘'} Can't be entirely numeric</p>
+                          <p id='toocommon'>{commonPasswordColor === 'green' ? '✔' : '✘'} Can't be too common (at least 1 number and special character)</p>
+                          <p id='personalinfo'>{personalInfoColor === 'green' ? '✔' : '✘'} Can't have any personal information</p>
                         </div>
                         <div className="pt-1 mb-4">
-                        <label style={{color: 'red'}}>{invalidFields?'Review and validate all entries for accuracy and completeness':''}</label>
+                        <label style={{color: 'red'}}>{invalidFields?<b>Review and validate all entries for accuracy and completeness</b>:''}</label>
                         <button className="btn btn-dark btn-lg btn-block button" disabled={isButtonDisabled} title="check all fields" type="submit">Register</button>
                         
 
