@@ -63,8 +63,8 @@ export const AuthProvider = ({ children }) => {
       console.log(response.status);
       console.log("there was a server issue");
       swal.fire({
-        title: "Error While Loging In",
-        html: "Possible Causes:<br>- Incorrect Username or Password<br>- Account Doesn't Exist",
+        title: "Error While Logging In",
+        html: "Incorrect Username or Password",
         icon: "error",
         toast: true,
         timer: 5001,

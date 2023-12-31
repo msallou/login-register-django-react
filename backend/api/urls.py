@@ -11,4 +11,5 @@ urlpatterns = [
     path('test/', views.testEndPoint),
     path('usernames/', views.RegisteredUsernamesView.as_view()),
     path('check-username/<str:username>/', views.check_username_availability),
+    path('check-username-exists/<str:username>/', views.check_username_exists),
 ]

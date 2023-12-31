@@ -5,6 +5,8 @@ import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCubes } from "@fortawesome/free-solid-svg-icons";
 import "./LoginPage.css";
+const swal = require('sweetalert2')
+
 
 function LoginPage() {
   const { loginUser, isAuthenticated } = useContext(AuthContext);
@@ -26,7 +28,38 @@ function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    loginUser(username, password, handleSuccessfulLogin);
+  
+    // Check if the username exists
+    const response = await checkUsernameExists(username);
+  
+    if (response.exists) {
+      // Username exists, proceed with login
+      loginUser(username, password, handleSuccessfulLogin);
+    } else {
+      // Username does not exist, show an alert
+      swal.fire({
+        title: 'Error While Logging In',
+        html: 'Username Does Not Exist',
+        icon: 'error',
+        toast: true,
+        timer: 5001,
+        position: 'top-right',
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
+    }
+  };
+  
+  // Function to check if the username exists
+  const checkUsernameExists = async (username) => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/check-username-exists/${username}/`);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error checking username existence:', error);
+      return { exists: false };
+    }
   };
 
   const handleSuccessfulLogin = () => {
