@@ -29,7 +29,7 @@ function Homepage() {
         <div className="row">
           <div className="col-md-4">
             <div className="card mb-4 box-shadow">
-              <img className="card-img-top" src="https://via.placeholder.com/300" alt="Card cap" />
+              <img className="card-img-top" src="./images/modules.jpg" alt="Card cap" />
               <div className="card-body">
                 <h2 className="card-title">Interactive Learning Modules</h2>
                 <p className="card-text">
@@ -43,8 +43,9 @@ function Homepage() {
           </div>
           <div className="col-md-4">
             <div className="card mb-4 box-shadow">
-              <img className="card-img-top" src="https://via.placeholder.com/300" alt="Card cap" />
+              <img className="card-img-top" src="./images/progress.jpg" alt="Card cap" />
               <div className="card-body">
+                <b>MIGHT NOT BE COPYRIGHT FREE</b>
                 <h2 className="card-title">Personalized Progress Tracking</h2>
                 <p className="card-text">
                   Dive into our personalized progress tracking system, allowing parents and teachers
@@ -57,7 +58,7 @@ function Homepage() {
           </div>
           <div className="col-md-4">
             <div className="card mb-4 box-shadow">
-              <img className="card-img-top" src="https://via.placeholder.com/300" alt="Card cap" />
+              <img className="card-img-top" src="./images/practice.PNG" alt="Card cap" />
               <div className="card-body">
                 <h2 className="card-title">Engaging Resources for Practice</h2>
                 <p className="card-text">
