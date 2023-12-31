@@ -4,6 +4,9 @@ import React, { useState, useContext, useEffect } from 'react';
 import AuthContext from "../context/AuthContext";
 import { useHistory } from 'react-router-dom';
 import "./RegisterPage.css";
+import { Button } from 'reactstrap'
+
+
 
 function RegisterPage() {
   const [passLengthStyle, setPassLengthStyle] = useState('red')
@@ -57,20 +60,42 @@ function RegisterPage() {
     }
   };
 
+  // const checkEmail = (e) => {
+  //   if (email.length === 0) {
+  //     setEmailErrorMessage('');
+  //     return;
+  //   }
+  
+  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+  //   // Use the functional form of setEmail to ensure the latest state value
+  //   setEmail(prevEmail => {
+  //     if (!emailRegex.test(prevEmail)) {
+  //       setEmailErrorMessage('Invalid Email');
+  //     } else {
+  //       setEmailErrorMessage('');
+  //     }
+  //     return prevEmail;
+  //   });
+  // };
   const checkEmail = () => {
-    if (email === '') {
+    const emailValue = email;
+  
+    if (emailValue.length === 0) {
       setEmailErrorMessage('');
-      return;
-    }
-  
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
-    if (!emailRegex.test(email)) {
-      setEmailErrorMessage('Invalid Email');
     } else {
-      setEmailErrorMessage('');
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+      if (!emailRegex.test(emailValue)) {
+        setEmailErrorMessage('Invalid Email');
+      } else {
+        setEmailErrorMessage('');
+      }
     }
   };
+  
+  
+  
 
 
 
@@ -127,6 +152,9 @@ function RegisterPage() {
   };
 
   useEffect(() => {
+    const body = document.body;
+    body.style.overflow = 'hidden';
+
     checkPassMatch();
     checkPasswordLength();
     checkNumericPassword();
@@ -226,8 +254,8 @@ function RegisterPage() {
                         </div>
                         <div className="form-outline mb-2">
                           <label className="form-label" htmlFor="formEmail">Email Address</label>
-                          {emailErrorMessage && (<p style={{ color: 'red', fontSize: '14px', marginBottom: '5px' }}>{emailErrorMessage}</p>)}
-                          <input type="email" id="formEmail" className="form-control form-control-lg" placeholder="Email Address" onChange={(e) => {e.persist(); setEmail(e.target.value); checkEmail()}}/>
+                          {emailErrorMessage && (<p style={{ color: 'red'}}>{emailErrorMessage}</p>)}
+                          <input type="email" id="formEmail" className="form-control form-control-lg" placeholder="Email Address" onKeyUp={checkEmail} onChange={(e) => setEmail(e.target.value)}/>
                         </div>
                         <div className="form-outline mb-2">
                           <label className="form-label" htmlFor="formPassword">Password</label>
@@ -245,7 +273,10 @@ function RegisterPage() {
                           <p id='personalinfo'>Can't have any personal information</p>
                         </div>
                         <div className="pt-1 mb-4">
-                          <button className="btn btn-dark btn-lg btn-block button" disabled={isButtonDisabled} type="submit">Register</button>
+                        <label style={{color: 'red'}}>{isButtonDisabled?'Check all errors & fields and make sure they are all filled out and valid':''}</label>
+                        <button className="btn btn-dark btn-lg btn-block button" disabled={isButtonDisabled} title="check all fields" type="submit">Register</button>
+                        
+
                           <p className="pb-lg-2 small text-muted logintext" style={{textDecoration: 'none'}}>Already have an account? <a href="/login">Login here</a></p>
                         </div>
                       </form>
