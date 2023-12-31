@@ -11,8 +11,10 @@ function Settings() {
     email: '',
   });
 
+  // New state variable to track profile updates
+  const [profileUpdated, setProfileUpdated] = useState(false);
+
   useEffect(() => {
-    // Set the initial form data when the component mounts
     if (user) {
       setFormData({
         first_name: user.first_name,
@@ -20,7 +22,7 @@ function Settings() {
         email: user.email,
       });
     }
-  }, [user]);
+  }, [user, profileUpdated]);
 
   const handleChange = (e) => {
     setFormData({
@@ -44,12 +46,17 @@ function Settings() {
         }
       );
       
-  
       if (response.status === 200) {
+        // Update local state
         setUser({
           ...user,
           ...formData,
         });
+        console.log(formData)
+        
+        // Trigger profile update in other components
+        setProfileUpdated((prev) => !prev);
+
         swal.fire({
           title: "Successfully Updated Profile",
           icon: "success",
