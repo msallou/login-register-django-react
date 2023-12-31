@@ -83,7 +83,7 @@ function RegisterPage() {
       setEmailErrorMessage('');
     }
   };
-  
+
 
 
   // const checkPersonalInfo = () => {
