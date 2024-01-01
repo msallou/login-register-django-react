@@ -72,7 +72,7 @@ function RegisterPage() {
     const emailValue = email;
   
     if (emailValue.length === 0) {
-      setEmailErrorMessage('');
+      
     } else {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   
@@ -86,7 +86,7 @@ function RegisterPage() {
   
   const checkUsernameAvailability = async () => {
     if (username === '') {
-      // can't set it to available because you can then submit with a blank username
+      setEmailErrorMessage('')
     } else{
         try {
           const response = await axios.get(`http://localhost:8000/api/check-username/${username}/`);
@@ -101,7 +101,7 @@ function RegisterPage() {
   
   const checkEmailAvailability = async () => {
     if (email === '') {
-      // can't set it to available because you can then submit with a blank username
+      setemailAvailable(true)
     } else{
         try {
           const response = await axios.get(`http://localhost:8000/api/check-email/${email}/`);
@@ -298,7 +298,7 @@ function RegisterPage() {
                         <div className="form-outline mb-2">
                           <label className="form-label" htmlFor="formEmail">Email Address</label>
                           {emailErrorMessage && (<p style={{ color: 'red'}}><b>✘ {emailErrorMessage}</b></p>)}
-                          {emailAvailable ? null : <p style={{ color: 'red' }}><b>✘ An Account With This Email Address Already Exists</b></p>}
+                          {emailAvailable ? null : <p style={{ color: 'red' }}><b>✘ This Email Address Is Already Registered With An Account</b></p>}
                           <input type="email" id="formEmail" className="form-control form-control-lg" placeholder="Email Address" onKeyUp={(e) => { checkEmail(); checkEmailAvailability(e); }} onChange={(e) => setEmail(e.target.value)} />
                         </div>
                         <div className="form-outline mb-2">
