@@ -14,6 +14,7 @@ function RegisterPage() {
   const [confirmHide, setConfirmHide] = useState(true)
   const [usernameErrorMessage, setUsernameErrorMessage] = useState('')
   const [usernameAvailable, setUsernameAvailable] = useState(true)
+  const [emailAvailable, setemailAvailable] = useState(true)
   const [invalidFields, setInvalidFields] = useState()
 
 
@@ -94,8 +95,21 @@ function RegisterPage() {
           setUsernameAvailable(isAvailable);
         } catch (error) {
           console.error('Error checking username availability:', error);
-          // setUsernameAvailable(true);  // Set to false in case of an error
-          setUsernameErrorMessage('Error checking username availability');
+        }
+      }
+  };
+  
+  const checkEmailAvailability = async () => {
+    if (email === '') {
+      // can't set it to available because you can then submit with a blank username
+    } else{
+        try {
+          const response = await axios.get(`http://localhost:8000/api/check-email/${email}/`);
+          const { isAvailable } = response.data;
+
+          setemailAvailable(isAvailable);
+        } catch (error) {
+          console.error('Error checking username availability:', error);
         }
       }
   };
@@ -186,6 +200,7 @@ function RegisterPage() {
     checkCommonPassword();
     checkEmail()
     checkUsernameAvailability()
+    checkUsernameAvailability()
     validateEntries()
   
     const passlength = document.getElementById('passlength');
@@ -223,7 +238,7 @@ function RegisterPage() {
     if (authTokens) {
       history.push('/dashboard');
     }
-  }, [authTokens, history, lengthColor, password, password2, passMatchStyle, isEntirelyNumeric, numericColor, personalInfoColor, commonPasswordColor, usernameAvailable]);
+  }, [authTokens, history, lengthColor, password, password2, passMatchStyle, isEntirelyNumeric, numericColor, personalInfoColor, commonPasswordColor, usernameAvailable, emailAvailable]);
   
 
 
@@ -283,7 +298,8 @@ function RegisterPage() {
                         <div className="form-outline mb-2">
                           <label className="form-label" htmlFor="formEmail">Email Address</label>
                           {emailErrorMessage && (<p style={{ color: 'red'}}><b>✘ {emailErrorMessage}</b></p>)}
-                          <input type="email" id="formEmail" className="form-control form-control-lg" placeholder="Email Address" onKeyUp={checkEmail} onChange={(e) => setEmail(e.target.value)}/>
+                          {emailAvailable ? null : <p style={{ color: 'red' }}><b>✘ Email Already Exists</b></p>}
+                          <input type="email" id="formEmail" className="form-control form-control-lg" placeholder="Email Address" onKeyUp={(e) => { checkEmail(); checkEmailAvailability(e); }} onChange={(e) => setEmail(e.target.value)} />
                         </div>
                         <div className="form-outline mb-2">
                           <label className="form-label" htmlFor="formPassword">Password</label>

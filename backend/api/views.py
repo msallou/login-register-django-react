@@ -87,6 +87,14 @@ def check_username_availability(request, username):
     return JsonResponse({'isAvailable': is_available})
 
 @require_GET
+def check_email_availability(request, email):
+    # Check if the email already exists in the database
+    is_available = not User.objects.filter(email=email).exists()
+
+    # Return the result as JSON
+    return JsonResponse({'isAvailable': is_available})
+
+@require_GET
 def check_username_exists(request, username):
     # Perform the check to see if the username exists
     exists = User.objects.filter(username=username).exists()
