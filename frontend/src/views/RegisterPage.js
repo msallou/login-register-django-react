@@ -298,7 +298,7 @@ function RegisterPage() {
                         <div className="form-outline mb-2">
                           <label className="form-label" htmlFor="formEmail">Email Address</label>
                           {emailErrorMessage && (<p style={{ color: 'red'}}><b>✘ {emailErrorMessage}</b></p>)}
-                          {emailAvailable ? null : <p style={{ color: 'red' }}><b>✘ Email Already Exists</b></p>}
+                          {emailAvailable ? null : <p style={{ color: 'red' }}><b>✘ An Account With This Email Address Already Exists</b></p>}
                           <input type="email" id="formEmail" className="form-control form-control-lg" placeholder="Email Address" onKeyUp={(e) => { checkEmail(); checkEmailAvailability(e); }} onChange={(e) => setEmail(e.target.value)} />
                         </div>
                         <div className="form-outline mb-2">
