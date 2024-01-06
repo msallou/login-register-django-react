@@ -14,6 +14,6 @@ urlpatterns = [
     path('check-email/<str:email>/', views.check_email_availability),
     path('check-username-exists/<str:username>/', views.check_username_exists),
 
-
+    path('create-notification/', views.CreateNotificationView.as_view()),
     path('notifications/<int:user_id>/', views.NotificationsView.as_view()),
 ]

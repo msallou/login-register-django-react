@@ -106,3 +106,15 @@ class NotificationsView(APIView):
         notifications = Notification.objects.filter(user_id=user_id)
         serializer = NotificationSerializer(notifications, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class CreateNotificationView(APIView):
+    def post(self, request):
+        # Assuming you pass user_id and message in the request data
+        user_id = request.data.get('user_id')
+        message = request.data.get('message')
+
+        if user_id and message:
+            Notification.objects.create(user_id=user_id, message=message, isRead=False)
+            return Response({'message': 'Notification created successfully.'}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({'error': 'Invalid data. Both user_id and message are required.'}, status=status.HTTP_400_BAD_REQUEST)
