@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from api.models import User#, Profile
-from api.serializers import UserSerializer, MyTokenObtainPairSerializer, RegisterSerializer
+from api.serializers import UserSerializer, MyTokenObtainPairSerializer, RegisterSerializer, NotificationSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics, status
@@ -13,7 +13,7 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import UserSerializer
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
-
+from .models import Notification
 
 
 # Create your views here.
@@ -99,3 +99,10 @@ def check_username_exists(request, username):
     # Perform the check to see if the username exists
     exists = User.objects.filter(username=username).exists()
     return JsonResponse({'exists': exists})
+
+
+class NotificationsView(APIView):
+    def get(self, request, user_id):
+        notifications = Notification.objects.filter(user_id=user_id)
+        serializer = NotificationSerializer(notifications, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

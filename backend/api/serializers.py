@@ -5,6 +5,14 @@ from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer # used to make access and refresh token
 from rest_framework import serializers, status
 from rest_framework.response import Response
+from .models import Notification
+
+
+
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notification
+        fields = ['user', 'message', 'notified', 'isRead']
 
 
 

@@ -13,3 +13,12 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+
+class Notification(models.Model):
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    message = models.TextField()
+    notified = models.DateTimeField(auto_now_add=True)
+    isRead = models.BooleanField(False)
+
+    def __str__(self):
+        return f"{self.user}: {self.message}"
