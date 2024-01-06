@@ -1,46 +1,34 @@
-import React, { useEffect, useState } from 'react'
-import useAxios from '../utils/useAxios'
-import { jwtDecode } from 'jwt-decode'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react';
+import useAxios from '../utils/useAxios';
+import { jwtDecode } from 'jwt-decode';
+import axios from 'axios';
+import { fetchNotifications, createNotification } from '../utils/notificationUtils';
 
 function Dashboard({}) {
   const [notifications, setNotifications] = useState([]);
 
-  const [res, setResponse] = useState('') // data
-  const api = useAxios()
+  const token = localStorage.getItem('authTokens');
+  let user_id, first_name;
 
-  const token = localStorage.getItem('authTokens')
-  if (token) { // user exists
-    const decoded = jwtDecode(token)
-    var user_id = decoded.user_id
-    var first_name = decoded.first_name
+  if (token) {
+    const decoded = jwtDecode(token);
+    user_id = decoded.user_id;
+    first_name = decoded.first_name;
   }
 
-  const fetchNotifications = async () => {
-    try {
-      const response = await axios.get(`http://localhost:8000/api/notifications/${user_id}/`);
-      setNotifications(response.data);
-    } catch (error) {
-      console.error('Error fetching notifications:', error);
-    }
-  };
 
+  // Run this useEffect React Hook anywhere and pass in the custom notification message inside the createNotification call function
   useEffect(() => {
-    fetchNotifications();
+    // Fetch notifications when the component mounts
+    fetchNotifications(user_id, setNotifications);
   }, [user_id]);
 
   const handleCreateNotification = async () => {
     try {
-      // Make a POST request to create a new notification
-      await axios.post('http://localhost:8000/api/create-notification/', {
-        user_id: user_id,
-        message: `${first_name} created a new notification!`,
-      });
-  
-      // Fetch updated notifications after creating a new one
-      fetchNotifications();
+      // Use the createNotification function
+      await createNotification(user_id, first_name, setNotifications, `This is a custom message from ${first_name}`);
     } catch (error) {
-      console.error('Error creating notification:', error);
+      console.error('Error handling createNotification:', error);
     }
   };
 
