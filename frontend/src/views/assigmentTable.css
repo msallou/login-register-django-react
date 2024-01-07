@@ -1,0 +1,27 @@
+/* YourAssignmentTableStyles.css */
+
+.table-container {
+    margin-top: 20px;
+    overflow-x: auto; /* Enable horizontal scrolling for small screens */
+}
+
+.assignment-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+.assignment-table th, .assignment-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd; /* Add a bottom border to separate rows */
+}
+
+.assignment-table th {
+    background-color: #f2f2f2; /* Light gray background for header */
+}
+
+.assignment-table tbody tr:hover {
+    background-color: #f5f5f5; /* Highlight row on hover */
+}

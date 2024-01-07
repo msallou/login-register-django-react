@@ -1,5 +1,5 @@
 from django.contrib import admin
-from api.models import User, Notification
+from api.models import User, Notification, AssignmentReport
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ['username', 'first_name', 'last_name', 'email']
@@ -8,3 +8,4 @@ class UserAdmin(admin.ModelAdmin):
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Notification)
+admin.site.register(AssignmentReport)

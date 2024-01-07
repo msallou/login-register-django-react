@@ -22,3 +22,14 @@ class Notification(models.Model):
 
     def __str__(self):
         return f"{self.user}: {self.message}"
+    
+class AssignmentReport(models.Model):
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+    # date = models.CharField(max_length=255)
+    unit = models.CharField(max_length=255)
+    lesson = models.CharField(max_length=255)
+    grade = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.user}: {self.grade}: {self.lesson}"

@@ -57,6 +57,8 @@ function Dashboard({}) {
                   </li>
                 ))}
             </ul>
+          
+          <h1><a href="/progress">My Progress</a></h1>
   </div>
   )
 }

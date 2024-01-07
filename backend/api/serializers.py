@@ -5,7 +5,7 @@ from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer # used to make access and refresh token
 from rest_framework import serializers, status
 from rest_framework.response import Response
-from .models import Notification
+from .models import Notification, AssignmentReport
 
 
 
@@ -14,7 +14,10 @@ class NotificationSerializer(serializers.ModelSerializer):
         model = Notification
         fields = ['user', 'message', 'notified', 'isRead']
 
-
+class AssignmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AssignmentReport
+        fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -59,3 +62,4 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+    

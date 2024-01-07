@@ -15,6 +15,7 @@ import Navbar from './views/Navbar'
 import Settings from "./views/Settings";
 import HelpDesk from "./views/HelpDesk";
 import NotFound from "./views/NotFound";
+import UserProgress from "./views/UserProgress";
 
 
 const history = createBrowserHistory()
@@ -27,6 +28,7 @@ function App() {
         <Switch>
           <PrivateRoute path="/dashboard"><Dashboard /></PrivateRoute>
           <PrivateRoute path="/settings"><Settings /></PrivateRoute>
+          <PrivateRoute path="/progress"><UserProgress /></PrivateRoute>
           <Route component={LoginPage} path='/login' />
           <Route component={RegisterPage} path='/register' />
           <Route exact path={['/', '/home']} component={Homepage} />
