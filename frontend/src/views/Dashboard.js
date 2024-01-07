@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './Notifications.css'
+import './Dashboard.css'
 import { jwtDecode } from 'jwt-decode';
 import { fetchNotifications, createNotification } from '../utils/notificationUtils';
 
@@ -63,7 +63,8 @@ function Dashboard() {
       </ul>
     </div>
     <br /><br />
-    <h1><a href="/progress">My Progress</a></h1>
+    <a href="/progress" className="button">Explore My Progress</a>
+
 
   </div>
   )

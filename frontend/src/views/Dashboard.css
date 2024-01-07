@@ -53,3 +53,26 @@
     margin-top: 5px;
     color: #777;
 }
+
+
+.button {
+    margin-left: 30px;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #007BFF;
+    color: #fff;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #0056b3; /* Darker blue color on hover */
+    transform: scale(1.1); /* Add a slight scale effect on hover */
+    color: #fff;
+  }
+  
+  
