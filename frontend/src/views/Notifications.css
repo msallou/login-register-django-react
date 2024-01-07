@@ -1,7 +1,7 @@
 .notification-list-container {
     width: 500px;
     padding: 20px;
-    height: 250px;
+    height: 300px;
     overflow-y: scroll;
     background-color: #f5f5f5;
     border-radius: 5px;

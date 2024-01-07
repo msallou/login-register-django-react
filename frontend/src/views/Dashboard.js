@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import useAxios from '../utils/useAxios';
 import './Notifications.css'
 import { jwtDecode } from 'jwt-decode';
-import axios from 'axios';
 import { fetchNotifications, createNotification } from '../utils/notificationUtils';
 
-function Dashboard({}) {
+function Dashboard() {
   const [notifications, setNotifications] = useState([]);
 
   const token = localStorage.getItem('authTokens');
@@ -43,9 +41,10 @@ function Dashboard({}) {
     <h1 className="h2">My Dashboard</h1>
     <hr/>
 
-    <h1>Notifications</h1>
     <button onClick={handleCreateNotification}>Create Notification</button><br /><br />
     <div className="notification-list-container">
+      <h2>Notifications</h2>
+      <hr />
       <ul className="notification-list">
           {notifications.map(notification => (
               <li key={notification.id} className="notification-item">

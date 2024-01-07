@@ -9,7 +9,7 @@ const fetchAssignments = async (user_id, setAssignment) => {
   }
 };
 
-const createAssignment = async (user_id, date, grade, unit, lesson, score, setAssignment) => {
+const createAssignment = async (user_id, date, grade, unit, lesson, score, completedStatus, setAssignment) => {
   try {
     // Make a POST request to create a new notification
     await axios.post('http://localhost:8000/api/create-assignment-report/', {
@@ -20,6 +20,7 @@ const createAssignment = async (user_id, date, grade, unit, lesson, score, setAs
       unit: unit,
       lesson: lesson,
       score: score,
+      completedStatus: completedStatus,
     });
 
     // Fetch updated notifications after creating a new one
