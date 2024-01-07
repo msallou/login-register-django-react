@@ -31,7 +31,7 @@ const UserProgress = () => {
             day: 'numeric',
         });
 
-        await createAssignment(user_id, formattedDate, 5, 4, 3, setAssignment);
+        await createAssignment(user_id, formattedDate, 5, 4, 3, 67.50, setAssignment);
     } catch (error) {
         console.error('Error handling createNotification:', error);
     }
@@ -52,6 +52,7 @@ const UserProgress = () => {
                         <th>Grade</th>
                         <th>Unit</th>
                         <th>Lesson</th>
+                        <th>Score</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,6 +62,7 @@ const UserProgress = () => {
                             <td>{assignment.grade}</td>
                             <td>{assignment.unit}</td>
                             <td>{assignment.lesson}</td>
+                            <td>{assignment.score}</td>
                         </tr>
                     ))}
                 </tbody>

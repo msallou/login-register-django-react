@@ -134,9 +134,10 @@ class CreateAssignmentView(APIView):
         grade = request.data.get('grade')
         unit = request.data.get('unit')
         lesson = request.data.get('lesson')
+        score = request.data.get('score')
 
         if user_id and date and grade and unit and lesson:
-            AssignmentReport.objects.create(user_id=user_id, date=date, grade=grade, unit=unit, lesson=lesson)
+            AssignmentReport.objects.create(user_id=user_id, date=date, grade=grade, unit=unit, lesson=lesson, score=score)
             return Response({'message': 'Assignment created successfully.'}, status=status.HTTP_201_CREATED)
         else:
             return Response({'error': 'Invalid data. user_id, grade, unit, and lesson are required.'}, status=status.HTTP_400_BAD_REQUEST)

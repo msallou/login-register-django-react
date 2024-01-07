@@ -30,6 +30,7 @@ class AssignmentReport(models.Model):
     unit = models.CharField(max_length=255)
     lesson = models.CharField(max_length=255)
     grade = models.IntegerField()
+    score = models.DecimalField(max_digits=4, decimal_places=2)
 
     def __str__(self):
         return f"{self.user}: {self.grade}: {self.lesson}"
