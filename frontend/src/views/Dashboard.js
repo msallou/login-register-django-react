@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useAxios from '../utils/useAxios';
+import './Notifications.css'
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import { fetchNotifications, createNotification } from '../utils/notificationUtils';
@@ -37,28 +38,34 @@ function Dashboard({}) {
 
   return (
   <div className="container-fluid" style={{ marginTop: 100 }}>
-          <h5 className='h5'>Welcome, {first_name}</h5>
-          <h5 className="h5">Your ID is {user_id}</h5>
-          <h1 className="h2">My Dashboard</h1>
-          <hr/>
+    <h5 className='h5'>Welcome, {first_name}</h5>
+    <h5 className="h5">Your ID is {user_id}</h5>
+    <h1 className="h2">My Dashboard</h1>
+    <hr/>
 
-          <h1>Notifications</h1>
-          <button onClick={handleCreateNotification}>Create Notification</button>
-            <ul>
-                {notifications.map(notification => (
-                    <li key={notification.id}>
-                    Message: <b>{notification.message}</b> Date: <b>{new Date(notification.notified).toLocaleString('en-US', {
-                      year: 'numeric',
-                      month: 'numeric',
-                      day: 'numeric',
-                      hour: 'numeric',
-                      minute: 'numeric',
-                    })}</b>
-                  </li>
-                ))}
-            </ul>
-          
-          <h1><a href="/progress">My Progress</a></h1>
+    <h1>Notifications</h1>
+    <button onClick={handleCreateNotification}>Create Notification</button><br /><br />
+    <div className="notification-list-container">
+      <ul className="notification-list">
+          {notifications.map(notification => (
+              <li key={notification.id} className="notification-item">
+                  <span className="notification-message">{notification.message}</span>
+                  <span className="notification-date">
+                      Date: <b>{new Date(notification.notified).toLocaleString('en-US', {
+                          year: 'numeric',
+                          month: 'numeric',
+                          day: 'numeric',
+                          hour: 'numeric',
+                          minute: 'numeric',
+                      })}</b>
+                  </span>
+              </li>
+          ))}
+      </ul>
+    </div>
+    <br /><br />
+    <h1><a href="/progress">My Progress</a></h1>
+
   </div>
   )
 }
